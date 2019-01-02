@@ -8,20 +8,64 @@
 
 /* Begin PBXBuildFile section */
 		8FC85A6921DC6B3400722039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A6821DC6B3400722039 /* AppDelegate.swift */; };
-		8FC85A6B21DC6B3400722039 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A6A21DC6B3400722039 /* ViewController.swift */; };
-		8FC85A6E21DC6B3400722039 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A6C21DC6B3400722039 /* Main.storyboard */; };
 		8FC85A7021DC6B3900722039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A6F21DC6B3900722039 /* Assets.xcassets */; };
 		8FC85A7321DC6B3900722039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A7121DC6B3900722039 /* LaunchScreen.storyboard */; };
+		8FC85A7F21DC6F4F00722039 /* FKTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A7C21DC6F4F00722039 /* FKTabBarController.swift */; };
+		8FC85A8021DC6F4F00722039 /* FKNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A7D21DC6F4F00722039 /* FKNavViewController.swift */; };
+		8FC85A8121DC6F4F00722039 /* CustomNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A7E21DC6F4F00722039 /* CustomNavViewController.swift */; };
+		8FC85A8B21DC6F6A00722039 /* UITextView+link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8321DC6F6A00722039 /* UITextView+link.swift */; };
+		8FC85A8C21DC6F6A00722039 /* TimeInterval+FormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8421DC6F6A00722039 /* TimeInterval+FormattedString.swift */; };
+		8FC85A8D21DC6F6A00722039 /* ScreenConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8521DC6F6A00722039 /* ScreenConstant.swift */; };
+		8FC85A8E21DC6F6A00722039 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8621DC6F6A00722039 /* UIColor+RGB.swift */; };
+		8FC85A8F21DC6F6A00722039 /* UIImage+ByColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8721DC6F6A00722039 /* UIImage+ByColor.swift */; };
+		8FC85A9021DC6F6A00722039 /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8821DC6F6A00722039 /* UIView+CornerRadius.swift */; };
+		8FC85A9121DC6F6A00722039 /* UIView+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8921DC6F6A00722039 /* UIView+ViewController.swift */; };
+		8FC85A9221DC6F6A00722039 /* SWPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A8A21DC6F6A00722039 /* SWPlaceholderTextView.swift */; };
+		8FC85A9421DC6F7F00722039 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9321DC6F7F00722039 /* SwiftNotice.swift */; };
+		8FC85AA121DC6F9400722039 /* SPAESEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9921DC6F9400722039 /* SPAESEncrypt.m */; };
+		8FC85AA221DC6F9400722039 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9B21DC6F9400722039 /* GTMBase64.m */; };
+		8FC85AA321DC6F9400722039 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9C21DC6F9400722039 /* LoginAPI.swift */; };
+		8FC85AA521DC6F9400722039 /* Data+Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9E21DC6F9400722039 /* Data+Encryption.swift */; };
+		8FC85AA621DC6F9400722039 /* GiphyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A9F21DC6F9400722039 /* GiphyAPI.swift */; };
+		8FC85AA721DC6F9400722039 /* CleanJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85AA021DC6F9400722039 /* CleanJSON.swift */; };
+		8FC85ABA21DCA66700722039 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85AB821DCA66700722039 /* MainViewController.swift */; };
+		8FC85ABB21DCA66700722039 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85AB921DCA66700722039 /* MainViewController.xib */; };
+		BC25EA51EF65E7617704F8C0 /* Pods_BibleGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E68672044AD7E5970080F4A /* Pods_BibleGuardian.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E68672044AD7E5970080F4A /* Pods_BibleGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BibleGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51501BF2C9E44E6BBE4A1060 /* Pods-BibleGuardian.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibleGuardian.release.xcconfig"; path = "Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian.release.xcconfig"; sourceTree = "<group>"; };
 		8FC85A6521DC6B3400722039 /* BibleGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibleGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC85A6821DC6B3400722039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8FC85A6A21DC6B3400722039 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8FC85A6D21DC6B3400722039 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8FC85A6F21DC6B3900722039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FC85A7221DC6B3900722039 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FC85A7421DC6B3900722039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FC85A7C21DC6F4F00722039 /* FKTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKTabBarController.swift; sourceTree = "<group>"; };
+		8FC85A7D21DC6F4F00722039 /* FKNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FKNavViewController.swift; sourceTree = "<group>"; };
+		8FC85A7E21DC6F4F00722039 /* CustomNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavViewController.swift; sourceTree = "<group>"; };
+		8FC85A8321DC6F6A00722039 /* UITextView+link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+link.swift"; sourceTree = "<group>"; };
+		8FC85A8421DC6F6A00722039 /* TimeInterval+FormattedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+FormattedString.swift"; sourceTree = "<group>"; };
+		8FC85A8521DC6F6A00722039 /* ScreenConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenConstant.swift; sourceTree = "<group>"; };
+		8FC85A8621DC6F6A00722039 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
+		8FC85A8721DC6F6A00722039 /* UIImage+ByColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ByColor.swift"; sourceTree = "<group>"; };
+		8FC85A8821DC6F6A00722039 /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
+		8FC85A8921DC6F6A00722039 /* UIView+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewController.swift"; sourceTree = "<group>"; };
+		8FC85A8A21DC6F6A00722039 /* SWPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWPlaceholderTextView.swift; sourceTree = "<group>"; };
+		8FC85A9321DC6F7F00722039 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
+		8FC85A9721DC6F9400722039 /* SPAESEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAESEncrypt.h; sourceTree = "<group>"; };
+		8FC85A9821DC6F9400722039 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		8FC85A9921DC6F9400722039 /* SPAESEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAESEncrypt.m; sourceTree = "<group>"; };
+		8FC85A9A21DC6F9400722039 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		8FC85A9B21DC6F9400722039 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		8FC85A9C21DC6F9400722039 /* LoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
+		8FC85A9E21DC6F9400722039 /* Data+Encryption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Encryption.swift"; sourceTree = "<group>"; };
+		8FC85A9F21DC6F9400722039 /* GiphyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyAPI.swift; sourceTree = "<group>"; };
+		8FC85AA021DC6F9400722039 /* CleanJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanJSON.swift; sourceTree = "<group>"; };
+		8FC85AB721DCA4C700722039 /* BibleGuardian-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BibleGuardian-Bridging-Header.h"; sourceTree = "<group>"; };
+		8FC85AB821DCA66700722039 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8FC85AB921DCA66700722039 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		D4E504CF0C2D8F6FD1BDC4B2 /* Pods-BibleGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibleGuardian.debug.xcconfig"; path = "Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +73,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC25EA51EF65E7617704F8C0 /* Pods_BibleGuardian.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A201F0DF9AE3930E800BA30 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D4E504CF0C2D8F6FD1BDC4B2 /* Pods-BibleGuardian.debug.xcconfig */,
+				51501BF2C9E44E6BBE4A1060 /* Pods-BibleGuardian.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7A7BED89C508C57E20015E48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E68672044AD7E5970080F4A /* Pods_BibleGuardian.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8FC85A5C21DC6B3300722039 = {
 			isa = PBXGroup;
 			children = (
 				8FC85A6721DC6B3400722039 /* BibleGuardian */,
 				8FC85A6621DC6B3400722039 /* Products */,
+				2A201F0DF9AE3930E800BA30 /* Pods */,
+				7A7BED89C508C57E20015E48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +119,83 @@
 			isa = PBXGroup;
 			children = (
 				8FC85A6821DC6B3400722039 /* AppDelegate.swift */,
-				8FC85A6A21DC6B3400722039 /* ViewController.swift */,
-				8FC85A6C21DC6B3400722039 /* Main.storyboard */,
+				8FC85A7B21DC6F2A00722039 /* Main */,
+				8FC85A7A21DC6F0D00722039 /* Utils */,
 				8FC85A6F21DC6B3900722039 /* Assets.xcassets */,
 				8FC85A7121DC6B3900722039 /* LaunchScreen.storyboard */,
 				8FC85A7421DC6B3900722039 /* Info.plist */,
+				8FC85AB721DCA4C700722039 /* BibleGuardian-Bridging-Header.h */,
 			);
 			path = BibleGuardian;
+			sourceTree = "<group>";
+		};
+		8FC85A7A21DC6F0D00722039 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85A9321DC6F7F00722039 /* SwiftNotice.swift */,
+				8FC85A9521DC6F9400722039 /* Network */,
+				8FC85A8221DC6F6A00722039 /* Category */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		8FC85A7B21DC6F2A00722039 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85A7E21DC6F4F00722039 /* CustomNavViewController.swift */,
+				8FC85A7D21DC6F4F00722039 /* FKNavViewController.swift */,
+				8FC85A7C21DC6F4F00722039 /* FKTabBarController.swift */,
+				8FC85AA821DC9B9400722039 /* MainPage */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		8FC85A8221DC6F6A00722039 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85A8321DC6F6A00722039 /* UITextView+link.swift */,
+				8FC85A8421DC6F6A00722039 /* TimeInterval+FormattedString.swift */,
+				8FC85A8521DC6F6A00722039 /* ScreenConstant.swift */,
+				8FC85A8621DC6F6A00722039 /* UIColor+RGB.swift */,
+				8FC85A8721DC6F6A00722039 /* UIImage+ByColor.swift */,
+				8FC85A8821DC6F6A00722039 /* UIView+CornerRadius.swift */,
+				8FC85A8921DC6F6A00722039 /* UIView+ViewController.swift */,
+				8FC85A8A21DC6F6A00722039 /* SWPlaceholderTextView.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		8FC85A9521DC6F9400722039 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85A9621DC6F9400722039 /* Encryption */,
+				8FC85A9C21DC6F9400722039 /* LoginAPI.swift */,
+				8FC85A9E21DC6F9400722039 /* Data+Encryption.swift */,
+				8FC85A9F21DC6F9400722039 /* GiphyAPI.swift */,
+				8FC85AA021DC6F9400722039 /* CleanJSON.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8FC85A9621DC6F9400722039 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85A9721DC6F9400722039 /* SPAESEncrypt.h */,
+				8FC85A9821DC6F9400722039 /* GTMBase64.h */,
+				8FC85A9921DC6F9400722039 /* SPAESEncrypt.m */,
+				8FC85A9A21DC6F9400722039 /* GTMDefines.h */,
+				8FC85A9B21DC6F9400722039 /* GTMBase64.m */,
+			);
+			path = Encryption;
+			sourceTree = "<group>";
+		};
+		8FC85AA821DC9B9400722039 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				8FC85AB821DCA66700722039 /* MainViewController.swift */,
+				8FC85AB921DCA66700722039 /* MainViewController.xib */,
+			);
+			path = MainPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +205,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8FC85A7721DC6B3900722039 /* Build configuration list for PBXNativeTarget "BibleGuardian" */;
 			buildPhases = (
+				6B37AC79537D8F16E7FDC442 /* [CP] Check Pods Manifest.lock */,
 				8FC85A6121DC6B3300722039 /* Sources */,
 				8FC85A6221DC6B3300722039 /* Frameworks */,
 				8FC85A6321DC6B3300722039 /* Resources */,
+				7DC154C557CAB72DC8E75076 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,34 +259,97 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FC85A7321DC6B3900722039 /* LaunchScreen.storyboard in Resources */,
+				8FC85ABB21DCA66700722039 /* MainViewController.xib in Resources */,
 				8FC85A7021DC6B3900722039 /* Assets.xcassets in Resources */,
-				8FC85A6E21DC6B3400722039 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6B37AC79537D8F16E7FDC442 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BibleGuardian-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DC154C557CAB72DC8E75076 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8FC85A6121DC6B3300722039 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FC85A6B21DC6B3400722039 /* ViewController.swift in Sources */,
+				8FC85ABA21DCA66700722039 /* MainViewController.swift in Sources */,
+				8FC85A8B21DC6F6A00722039 /* UITextView+link.swift in Sources */,
+				8FC85A7F21DC6F4F00722039 /* FKTabBarController.swift in Sources */,
+				8FC85AA521DC6F9400722039 /* Data+Encryption.swift in Sources */,
+				8FC85AA121DC6F9400722039 /* SPAESEncrypt.m in Sources */,
+				8FC85AA621DC6F9400722039 /* GiphyAPI.swift in Sources */,
+				8FC85A8021DC6F4F00722039 /* FKNavViewController.swift in Sources */,
+				8FC85A9221DC6F6A00722039 /* SWPlaceholderTextView.swift in Sources */,
+				8FC85A8C21DC6F6A00722039 /* TimeInterval+FormattedString.swift in Sources */,
+				8FC85A8D21DC6F6A00722039 /* ScreenConstant.swift in Sources */,
+				8FC85AA221DC6F9400722039 /* GTMBase64.m in Sources */,
 				8FC85A6921DC6B3400722039 /* AppDelegate.swift in Sources */,
+				8FC85A8121DC6F4F00722039 /* CustomNavViewController.swift in Sources */,
+				8FC85A8F21DC6F6A00722039 /* UIImage+ByColor.swift in Sources */,
+				8FC85A8E21DC6F6A00722039 /* UIColor+RGB.swift in Sources */,
+				8FC85AA321DC6F9400722039 /* LoginAPI.swift in Sources */,
+				8FC85A9421DC6F7F00722039 /* SwiftNotice.swift in Sources */,
+				8FC85A9121DC6F6A00722039 /* UIView+ViewController.swift in Sources */,
+				8FC85A9021DC6F6A00722039 /* UIView+CornerRadius.swift in Sources */,
+				8FC85AA721DC6F9400722039 /* CleanJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8FC85A6C21DC6B3400722039 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8FC85A6D21DC6B3400722039 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8FC85A7121DC6B3900722039 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -280,17 +479,20 @@
 		};
 		8FC85A7821DC6B3900722039 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4E504CF0C2D8F6FD1BDC4B2 /* Pods-BibleGuardian.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FE8QNZJ7C9;
 				INFOPLIST_FILE = BibleGuardian/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotcunited.BibleGuardian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BibleGuardian/BibleGuardian-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -298,17 +500,20 @@
 		};
 		8FC85A7921DC6B3900722039 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51501BF2C9E44E6BBE4A1060 /* Pods-BibleGuardian.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FE8QNZJ7C9;
 				INFOPLIST_FILE = BibleGuardian/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotcunited.BibleGuardian;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BibleGuardian/BibleGuardian-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
