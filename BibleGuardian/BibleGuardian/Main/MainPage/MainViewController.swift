@@ -51,10 +51,10 @@ class MainViewController: UIViewController {
 		
 		beginGame()
 	}
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		setupViews()
-	}
-    
+//	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//		setupViews()
+//	}
+	
     func beginGame() {
         scene.addSprites(for: level.letters)
     }
@@ -180,7 +180,7 @@ class MainViewController: UIViewController {
 		//横向分布
 		let contentX = (maxNum - characters.count) / 2
 		//计算最新的单词坐标前，先把数组中以后的单词坐标往上平移一个位置
-		let needRefreshX: Range = contentX..<characters.count
+		let needRefreshX: Range = contentX..<(characters.count + contentX)
 		for (index,point) in coordinates.enumerated() {
 			//如果包含在刷新区间内，Y轴平移
 			if needRefreshX.contains(point.x) {
