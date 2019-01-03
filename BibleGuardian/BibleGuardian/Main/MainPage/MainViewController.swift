@@ -13,13 +13,13 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		let words: [String] = ["konw","birds","meant"]//,"caged","are","bright"]
+		let words: [String] = ["konw","birds","meant","caged","are","bright"]
 
 		let times = Date()
 		let coordinates = getCoordinates(words: words.reversed())
 		print(coordinates)
 		
-		
+		print("randomTime = \(Date().timeIntervalSince(times))")
     }
 
 	private let maxNum = 8
