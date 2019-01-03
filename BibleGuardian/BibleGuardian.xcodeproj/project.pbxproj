@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F4A7A5121DE088000E23C8C /* Letter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4B21DE088000E23C8C /* Letter.swift */; };
+		6F4A7A5221DE088000E23C8C /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4C21DE088000E23C8C /* Word.swift */; };
+		6F4A7A5321DE088000E23C8C /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4D21DE088000E23C8C /* Level.swift */; };
+		6F4A7A5421DE088000E23C8C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4E21DE088000E23C8C /* Actions.sks */; };
+		6F4A7A5521DE088000E23C8C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4F21DE088000E23C8C /* GameScene.swift */; };
+		6F4A7A5621DE088000E23C8C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F4A7A5021DE088000E23C8C /* GameScene.sks */; };
 		8FC85A6921DC6B3400722039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A6821DC6B3400722039 /* AppDelegate.swift */; };
 		8FC85A7021DC6B3900722039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A6F21DC6B3900722039 /* Assets.xcassets */; };
 		8FC85A7321DC6B3900722039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A7121DC6B3900722039 /* LaunchScreen.storyboard */; };
@@ -36,6 +42,12 @@
 /* Begin PBXFileReference section */
 		1E68672044AD7E5970080F4A /* Pods_BibleGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BibleGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51501BF2C9E44E6BBE4A1060 /* Pods-BibleGuardian.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibleGuardian.release.xcconfig"; path = "Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian.release.xcconfig"; sourceTree = "<group>"; };
+		6F4A7A4B21DE088000E23C8C /* Letter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Letter.swift; sourceTree = "<group>"; };
+		6F4A7A4C21DE088000E23C8C /* Word.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		6F4A7A4D21DE088000E23C8C /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		6F4A7A4E21DE088000E23C8C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		6F4A7A4F21DE088000E23C8C /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		6F4A7A5021DE088000E23C8C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		8FC85A6521DC6B3400722039 /* BibleGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibleGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC85A6821DC6B3400722039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC85A6F21DC6B3900722039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,6 +99,19 @@
 				51501BF2C9E44E6BBE4A1060 /* Pods-BibleGuardian.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		6F4A7A4A21DE085800E23C8C /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				6F4A7A4E21DE088000E23C8C /* Actions.sks */,
+				6F4A7A5021DE088000E23C8C /* GameScene.sks */,
+				6F4A7A4F21DE088000E23C8C /* GameScene.swift */,
+				6F4A7A4B21DE088000E23C8C /* Letter.swift */,
+				6F4A7A4D21DE088000E23C8C /* Level.swift */,
+				6F4A7A4C21DE088000E23C8C /* Word.swift */,
+			);
+			path = Sprites;
 			sourceTree = "<group>";
 		};
 		7A7BED89C508C57E20015E48 /* Frameworks */ = {
@@ -142,6 +167,7 @@
 		8FC85A7B21DC6F2A00722039 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				6F4A7A4A21DE085800E23C8C /* Sprites */,
 				8FC85A7E21DC6F4F00722039 /* CustomNavViewController.swift */,
 				8FC85A7D21DC6F4F00722039 /* FKNavViewController.swift */,
 				8FC85A7C21DC6F4F00722039 /* FKTabBarController.swift */,
@@ -259,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FC85A7321DC6B3900722039 /* LaunchScreen.storyboard in Resources */,
+				6F4A7A5621DE088000E23C8C /* GameScene.sks in Resources */,
 				8FC85ABB21DCA66700722039 /* MainViewController.xib in Resources */,
 				8FC85A7021DC6B3900722039 /* Assets.xcassets in Resources */,
+				6F4A7A5421DE088000E23C8C /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F4A7A5121DE088000E23C8C /* Letter.swift in Sources */,
 				8FC85ABA21DCA66700722039 /* MainViewController.swift in Sources */,
 				8FC85A8B21DC6F6A00722039 /* UITextView+link.swift in Sources */,
 				8FC85A7F21DC6F4F00722039 /* FKTabBarController.swift in Sources */,
@@ -331,6 +360,7 @@
 				8FC85AA121DC6F9400722039 /* SPAESEncrypt.m in Sources */,
 				8FC85AA621DC6F9400722039 /* GiphyAPI.swift in Sources */,
 				8FC85A8021DC6F4F00722039 /* FKNavViewController.swift in Sources */,
+				6F4A7A5321DE088000E23C8C /* Level.swift in Sources */,
 				8FC85A9221DC6F6A00722039 /* SWPlaceholderTextView.swift in Sources */,
 				8FC85A8C21DC6F6A00722039 /* TimeInterval+FormattedString.swift in Sources */,
 				8FC85A8D21DC6F6A00722039 /* ScreenConstant.swift in Sources */,
@@ -340,6 +370,8 @@
 				8FC85A8F21DC6F6A00722039 /* UIImage+ByColor.swift in Sources */,
 				8FC85A8E21DC6F6A00722039 /* UIColor+RGB.swift in Sources */,
 				8FC85AA321DC6F9400722039 /* LoginAPI.swift in Sources */,
+				6F4A7A5521DE088000E23C8C /* GameScene.swift in Sources */,
+				6F4A7A5221DE088000E23C8C /* Word.swift in Sources */,
 				8FC85A9421DC6F7F00722039 /* SwiftNotice.swift in Sources */,
 				8FC85A9121DC6F6A00722039 /* UIView+ViewController.swift in Sources */,
 				8FC85A9021DC6F6A00722039 /* UIView+CornerRadius.swift in Sources */,
