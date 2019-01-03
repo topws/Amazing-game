@@ -27,8 +27,6 @@ class MainViewController: UIViewController {
 		let times = Date()
 		let coordinates = getCoordinates(words: words.reversed())
 		print(coordinates)
-		
-		
 		print("randomTime = \(Date().timeIntervalSince(times))")
 		
 		if let view = self.view as! SKView? {
