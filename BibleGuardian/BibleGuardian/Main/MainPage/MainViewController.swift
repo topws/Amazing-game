@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
 
 		let words: [String] = ["konw","birds","meant"]//,"caged","are","bright"]
 
+		let times = Date()
 		let coordinates = getCoordinates(words: words.reversed())
 		print(coordinates)
 		
