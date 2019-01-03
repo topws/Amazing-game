@@ -46,15 +46,17 @@ class MainViewController: UIViewController {
 		}
 		
 		level = Level()
-		scene.level = level
-		level.convertLetters(coordinates: coordinates)
+        level.convertLetters(coordinates: coordinates)
+        level.answerWords = words
+        scene.level = level
 		
 		beginGame()
 	}
-//	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//		setupViews()
-//	}
-	
+
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        setupViews()
+//    }
+    
     func beginGame() {
         scene.addSprites(for: level.letters)
     }
