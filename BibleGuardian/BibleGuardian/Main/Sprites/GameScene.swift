@@ -266,7 +266,7 @@ class GameScene: SKScene {
         } else {
             rows = [selectedLetters[0].row]
         }
-        let topRow = selectedLetters.last!.row
+        let topRow = selectedLetters.first!.row
         for letter in selectedLetters {
             if swipeVerticle == true {
                 rows.append(letter.row)
@@ -276,7 +276,7 @@ class GameScene: SKScene {
             if letter.row == topRow {
                 if let _ = level.letter(atColumn: letter.column, row: topRow + 1) {
                     isDrop = true
-                    break
+                    continue
                 }
             }
         }
@@ -286,10 +286,20 @@ class GameScene: SKScene {
             for col in columns {
                 for letter in (level.letters[col]) {
                     guard let letter = letter else { continue }
-                    if letter.row > rows[0]
-                        && level.letters[col][letter.row - 1] == nil
-                    {
-                        level.letters[col][letter.row - 1] = letter
+                    if letter.row > rows[0] {
+                        // 检测下落高度
+                        var height = letter.row
+                        for i in 1 ... letter.row {
+                            if let _ = level.letter(atColumn: letter.column, row: letter.row - i) {
+                                height = i - 1
+                                break
+                            }
+                        }
+                        // 更新字母
+                        letter.row = letter.row - height
+                        // 更新字母位置
+                        level.letters[col][letter.row + height] = nil
+                        level.letters[col][letter.row] = letter
                         animateLetters.append(letter)
                     }
                 }
@@ -370,29 +380,29 @@ class GameScene: SKScene {
     }
     
     
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
+//    func touchDown(atPoint pos : CGPoint) {
+//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+//            n.position = pos
+//            n.strokeColor = SKColor.green
+//            self.addChild(n)
+//        }
+//    }
+//
+//    func touchMoved(toPoint pos : CGPoint) {
+//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+//            n.position = pos
+//            n.strokeColor = SKColor.blue
+//            self.addChild(n)
+//        }
+//    }
+//
+//    func touchUp(atPoint pos : CGPoint) {
+//        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+//            n.position = pos
+//            n.strokeColor = SKColor.red
+//            self.addChild(n)
+//        }
+//    }
     
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        if let label = self.label {
