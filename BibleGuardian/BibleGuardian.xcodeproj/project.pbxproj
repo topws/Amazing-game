@@ -167,10 +167,10 @@
 		8FC85A7B21DC6F2A00722039 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				6F4A7A4A21DE085800E23C8C /* Sprites */,
 				8FC85A7E21DC6F4F00722039 /* CustomNavViewController.swift */,
 				8FC85A7D21DC6F4F00722039 /* FKNavViewController.swift */,
 				8FC85A7C21DC6F4F00722039 /* FKTabBarController.swift */,
+				6F4A7A4A21DE085800E23C8C /* Sprites */,
 				8FC85AA821DC9B9400722039 /* MainPage */,
 			);
 			path = Main;

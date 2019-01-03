@@ -18,36 +18,42 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		
+		setupViews()
+    }
+	private func setupViews() {
 		let words: [String] = ["konw","birds","meant"]//,"caged","are","bright"]
-
+		
 		let times = Date()
 		let coordinates = getCoordinates(words: words.reversed())
 		print(coordinates)
+		print("randomTime = \(Date().timeIntervalSince(times))")
 		
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            scene = GameScene(size: CGSize(width: 300, height: 600))
-            // Set the scale mode to scale to fit the window
-            scene.scaleMode = .aspectFill
-            
-            // Present the scene
-            view.presentScene(scene)
-            
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
-        
-        level = Level()
-        scene.level = level
-        level.answerWords = words
-        level.convertLetters(coordinates: coordinates)
-        
-        beginGame()
+		if let view = self.view as! SKView? {
+			// Load the SKScene from 'GameScene.sks'
+			scene = GameScene(size: CGSize(width: 300, height: 600))
+			// Set the scale mode to scale to fit the window
+			scene.scaleMode = .aspectFill
+			
+			// Present the scene
+			view.presentScene(scene)
+			
+			
+			view.ignoresSiblingOrder = true
+			
+			view.showsFPS = true
+			view.showsNodeCount = true
+		}
 		
-    }
+		level = Level()
+		scene.level = level
+		level.convertLetters(coordinates: coordinates)
+		
+		beginGame()
+	}
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		setupViews()
+	}
     
     func beginGame() {
         scene.addSprites(for: level.letters)
