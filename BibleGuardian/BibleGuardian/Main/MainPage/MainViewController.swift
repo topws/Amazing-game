@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, GameSceneDelegate {
     
     var scene: GameScene!
     var level: Level!
@@ -49,6 +49,7 @@ class MainViewController: UIViewController {
         level.convertLetters(coordinates: coordinates)
         level.answerWords = words
         scene.level = level
+        scene.sceneDelegate = self
 		
 		beginGame()
 	}
@@ -59,6 +60,10 @@ class MainViewController: UIViewController {
     
     func beginGame() {
         scene.addSprites(for: level.letters)
+    }
+    
+    func gameSceneDidTappedNext(scene: GameScene) {
+        setupViews()
     }
 
 	private let maxNum = 8
