@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
         
         level = Level()
         scene.level = level
+        level.answerWords = words
         level.convertLetters(coordinates: coordinates)
         
         beginGame()

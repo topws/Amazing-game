@@ -111,7 +111,7 @@ class Level {
     
     func isWordBingo(word: String) -> Bool {
         for (index, answerWord) in answerWords.enumerated() {
-            if word == answerWord {
+            if word == answerWord.uppercased() {
                 answerWords.remove(at: index)
                 return true
             }

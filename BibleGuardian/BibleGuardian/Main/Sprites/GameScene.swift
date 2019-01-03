@@ -124,6 +124,7 @@ class GameScene: SKScene {
             } else {
                 var selectedArray: [Letter] = []
                 if swipeVerticle == true {
+                    // 垂直
                     for letters in level.letters {
                         for letter in letters {
                             guard let letter = letter else { continue }
@@ -139,6 +140,7 @@ class GameScene: SKScene {
                             letter.isSelected = false
                         }
                     }
+                    // 检测断开
                     for letter in selectedArray {
                         let start = letter.row < startRow ? letter.row : startRow
                         let end = letter.row > startRow ? letter.row : startRow
@@ -158,6 +160,22 @@ class GameScene: SKScene {
                         }
                     }
                 } else if swipeVerticle == false {
+//                    for letters in level.letters {
+//                        for letter in letters {
+//                            guard let letter = letter else { continue }
+//                            let minColumn = column < startColumn ? column : startColumn
+//                            let maxColumn = column > startColumn ? column : startColumn
+//                            if letter.row == startRow {
+//                                if letter.column <= maxColumn && letter.column >= minColumn {
+////                                    letter.isSelected = true
+//                                    selectedArray.append(letter)
+//                                    break
+//                                }
+//                            }
+//                            letter.isSelected = false
+//                        }
+//                    }
+                    // 水平
                     for letters in level.letters {
                         for letter in letters {
                             guard let letter = letter else { continue }
@@ -165,12 +183,30 @@ class GameScene: SKScene {
                             let maxColumn = column > startColumn ? column : startColumn
                             if letter.row == startRow {
                                 if letter.column <= maxColumn && letter.column >= minColumn {
-//                                    letter.isSelected = true
                                     selectedArray.append(letter)
-                                    break
+                                    continue
                                 }
                             }
                             letter.isSelected = false
+                        }
+                    }
+                    // 检测断开
+                    for letter in selectedArray {
+                        let start = letter.column < startColumn ? letter.column : startColumn
+                        let end = letter.column > startColumn ? letter.column : startColumn
+                        var isLink = false
+                        for i in start ... end {
+                            isLink = false
+                            for otherLetter in selectedArray {
+                                if otherLetter.column == i {
+                                    isLink = true
+                                    break
+                                }
+                            }
+                            if !isLink { break }
+                        }
+                        if isLink {
+                            letter.isSelected = true
                         }
                     }
                 }
