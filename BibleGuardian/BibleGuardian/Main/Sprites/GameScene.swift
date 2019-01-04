@@ -256,7 +256,21 @@ class GameScene: SKScene {
         }
         if level.isWordBingo(word: word) {
             removeWord(selectedLetters: selectedLetters)
-            rearrangeMap(selectedLetters: selectedLetters)
+            if level.answerWords.count > 0 {
+                // 本关还没结束
+                rearrangeMap(selectedLetters: selectedLetters)
+                let breakColumns = checkBreak()
+                if breakColumns.count > 0 {
+                    for column in breakColumns {
+                        var fakeLetters: [Letter] = []
+                        for i in 0 ... (numRows - 1) {
+                            let letter = Letter(column: column, row: i, letter: LetterType(rawValue: "?")!)
+                            fakeLetters.append(letter)
+                        }
+                        rearrangeMap(selectedLetters: fakeLetters)
+                    }
+                }
+            }
         }
         startPoint = nil
         currentPoint = nil
@@ -282,16 +296,22 @@ class GameScene: SKScene {
         var isDrop = false
         var columns: [Int] = []
         var rows: [Int] = []
-        if swipeVerticle == true {
-            columns = [selectedLetters[0].column]
-        } else {
-            rows = [selectedLetters[0].row]
-        }
+//        if swipeVerticle == true {
+//            columns = [selectedLetters[0].column]
+//        } else {
+//            rows = [selectedLetters[0].row]
+//        }
         let topRow = selectedLetters.first!.row
         for letter in selectedLetters {
-            if swipeVerticle == true {
+//            if swipeVerticle == true {
+//                rows.append(letter.row)
+//            } else {
+//                columns.append(letter.column)
+//            }
+            if !rows.contains(letter.row) {
                 rows.append(letter.row)
-            } else {
+            }
+            if !columns.contains(letter.column) {
                 columns.append(letter.column)
             }
             if letter.row == topRow {
@@ -304,28 +324,7 @@ class GameScene: SKScene {
         
         if isDrop {
             // 下落
-            var animateLetters: [Letter] = []
-            for col in columns {
-                for letter in (level.letters[col]) {
-                    guard let letter = letter else { continue }
-                    if letter.row > rows[0] {
-                        // 检测下落高度
-                        var height = letter.row
-                        for i in 1 ... letter.row {
-                            if let _ = level.letter(atColumn: letter.column, row: letter.row - i) {
-                                height = i - 1
-                                break
-                            }
-                        }
-                        // 更新字母
-                        letter.row = letter.row - height
-                        // 更新字母位置
-                        level.letters[col][letter.row + height] = nil
-                        level.letters[col][letter.row] = letter
-                        animateLetters.append(letter)
-                    }
-                }
-            }
+            let animateLetters = processDrop(columns: columns, rows: rows)
             self.isUserInteractionEnabled = false
             animateFallingLetters(in: animateLetters) {
                 self.isUserInteractionEnabled = true
@@ -334,7 +333,10 @@ class GameScene: SKScene {
             // 平移
             var goLeftLetters: [Letter] = []
             var goRightLetters: [Letter] = []
-            if swipeVerticle == true {
+            if columns.count == 1 {
+                if !rows.contains(0) {
+                    return
+                }
                 // 单列
                 let emptyColumn = columns[0]
                 if emptyColumn == 0 || emptyColumn == 8 {
@@ -343,22 +345,38 @@ class GameScene: SKScene {
                 if emptyColumn <= 3 {
                     // 右移
                     goRightLetters = processGoRight(rows: rows, leftColumn: emptyColumn, step: 1)
+                    
+                    self.isUserInteractionEnabled = false
                     animateFallingLetters(in: goRightLetters) {
-                        
+                        self.isUserInteractionEnabled = true
                     }
                 } else {
                     // 左移
                     goLeftLetters = processGoLeft(rows: rows, rightColumn: emptyColumn, step: 1)
+                    
+                    self.isUserInteractionEnabled = false
                     animateFallingLetters(in: goLeftLetters) {
-                        
+                        self.isUserInteractionEnabled = true
                     }
                 }
             } else {
                 // 多列
-//                let leftColumn = columns.first
-//                let rightColumn = columns.last
-//                let leftStep = 4 - leftColumn
-//                let rightStep = rightColumn - 3
+                guard let leftColumn = columns.first,
+                    let rightColumn = columns.last else { return }
+                let leftStep = 4 - leftColumn
+                let rightStep = rightColumn - 3
+                
+                goLeftLetters = processGoLeft(rows: rows, rightColumn: rightColumn, step: leftStep)
+                goRightLetters = processGoRight(rows: rows, leftColumn: leftColumn, step: rightStep)
+                
+                self.isUserInteractionEnabled = false
+                animateFallingLetters(in: goLeftLetters) {
+                    self.isUserInteractionEnabled = true
+                }
+                self.isUserInteractionEnabled = false
+                animateFallingLetters(in: goRightLetters) {
+                    self.isUserInteractionEnabled = true
+                }
             }
 //            for letters in level.letters {
 //                for letter in letters {
@@ -369,6 +387,32 @@ class GameScene: SKScene {
 //                }
 //            }
         }
+    }
+    
+    func processDrop(columns: [Int], rows: [Int]) -> [Letter] {
+        var animateLetters: [Letter] = []
+        for col in columns {
+            for letter in (level.letters[col]) {
+                guard let letter = letter else { continue }
+                if letter.row > rows[0] {
+                    // 检测下落高度
+                    var height = letter.row
+                    for i in 1 ... letter.row {
+                        if let _ = level.letter(atColumn: letter.column, row: letter.row - i) {
+                            height = i - 1
+                            break
+                        }
+                    }
+                    // 更新字母
+                    letter.row = letter.row - height
+                    // 更新字母位置
+                    level.letters[col][letter.row + height] = nil
+                    level.letters[col][letter.row] = letter
+                    animateLetters.append(letter)
+                }
+            }
+        }
+        return animateLetters
     }
     
     func processGoRight(rows: [Int], leftColumn: Int, step: Int) -> [Letter] {
@@ -439,6 +483,49 @@ class GameScene: SKScene {
         
         // 6
         run(SKAction.wait(forDuration: longestDuration), completion: completion)
+    }
+    
+    // 检测断开
+    func checkBreak() -> [Int] {
+        var startColumn: Int?
+        var tempEmptyColumnArray: [Int] = []
+        var breakColumns: [Int] = []
+        
+        // 横向遍历
+        for (index, letterColumn) in level.letters.enumerated() {
+            if startColumn == nil {
+                // 未检测到开始列
+                for letter in letterColumn {
+                    if letter != nil {
+                        startColumn = index
+                        break
+                    }
+                }
+            } else {
+                // 检测到开始列
+                var isEmpty = true
+                for letter in letterColumn {
+                    if letter != nil {
+                        isEmpty = false
+                        break
+                    }
+                }
+                if isEmpty {
+                    if tempEmptyColumnArray.count == 0 {
+                        tempEmptyColumnArray.append(index)
+                    } else {
+                        if !tempEmptyColumnArray.contains(index - 1) {
+                            breakColumns.append(contentsOf: tempEmptyColumnArray)
+                            tempEmptyColumnArray.removeAll()
+                            tempEmptyColumnArray.append(index)
+                        } else {
+                            tempEmptyColumnArray.append(index)
+                        }
+                    }
+                }
+            }
+        }
+        return breakColumns
     }
     
     override func didMove(to view: SKView) {
