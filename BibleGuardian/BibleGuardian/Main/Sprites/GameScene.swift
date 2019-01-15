@@ -17,11 +17,28 @@ class GameScene: SKScene {
     
     weak var sceneDelegate: GameSceneDelegate?
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    private var progressBar: SKSpriteNode?
-    private var heart: SKSpriteNode?
-    private var nextNode : SKLabelNode?
+    var labelFrame: CGRect {
+        get {
+            return textNode.frame
+        }
+    }
+    var reloadFrame: CGRect {
+        get {
+            return nextNode.frame
+        }
+    }
+    
+    private var coinNode : SKLabelNode!
+    private var levelNode : SKLabelNode!
+    private var nextNode : SKLabelNode!
+    private var bibleNode: SKSpriteNode!
+    private var timeBar: SKSpriteNode!
+    private var timeNode : SKLabelNode!
+    private var textNode : SKSpriteNode!
+    private var itemNode: SKSpriteNode!
+    private var treasureNode: SKSpriteNode!
+    
+    private var timer: Timer!
     
     var level: Level!
     
@@ -40,18 +57,22 @@ class GameScene: SKScene {
         
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        let background = SKSpriteNode(imageNamed: "background")
+        background.size = size
+//        addChild(background)
+        
         addChild(gameLayer)
         
         let layerPosition = CGPoint(
             x: -tileWidth * CGFloat(numColumns) / 2,
-            y: -tileHeight * CGFloat(numRows) / 2)
+            y: -tileHeight * CGFloat(numRows) / 2 - 60)
         
         cookiesLayer.position = layerPosition
         gameLayer.addChild(cookiesLayer)
         
         nextNode = SKLabelNode(text: "Next")
-        nextNode?.position = CGPoint(x: 200, y: 300)
-        cookiesLayer.addChild(nextNode!)
+        nextNode?.position = CGPoint(x: 100, y: 200)
+        addChild(nextNode!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -228,13 +249,13 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        for touch in touches {
-            let location = touch.location(in: cookiesLayer)
-            if nextNode?.contains(location) == true {
-                sceneDelegate?.gameSceneDidTappedNext(scene: self)
-                return
-            }
-        }
+//        for touch in touches {
+//            let location = touch.location(in: cookiesLayer)
+//            if nextNode?.contains(location) == true {
+//                sceneDelegate?.gameSceneDidTappedNext(scene: self)
+//                return
+//            }
+//        }
         
         var selectedLetters: [Letter] = []
         for letters in level.letters {
@@ -259,7 +280,7 @@ class GameScene: SKScene {
             if level.answerWords.count > 0 {
                 // 本关还没结束
                 rearrangeMap(selectedLetters: selectedLetters)
-                let breakColumns = checkBreak()
+                let breakColumns = level.checkBreak()
                 if breakColumns.count > 0 {
                     for column in breakColumns {
                         var fakeLetters: [Letter] = []
@@ -269,6 +290,12 @@ class GameScene: SKScene {
                         }
                         rearrangeMap(selectedLetters: fakeLetters)
                     }
+                }
+                if !level.checkWordsAvailable() {
+                    // 检查到无可用单词
+                    clearMap(letters: level!.letters)
+                    level.buildLetters()
+                    addSprites(for: level.letters)
                 }
             }
         }
@@ -485,87 +512,84 @@ class GameScene: SKScene {
         run(SKAction.wait(forDuration: longestDuration), completion: completion)
     }
     
-    // 检测断开
-    func checkBreak() -> [Int] {
-        var startColumn: Int?
-        var tempEmptyColumnArray: [Int] = []
-        var breakColumns: [Int] = []
-        
-        // 横向遍历
-        for (index, letterColumn) in level.letters.enumerated() {
-            if startColumn == nil {
-                // 未检测到开始列
-                for letter in letterColumn {
-                    if letter != nil {
-                        startColumn = index
-                        break
-                    }
-                }
-            } else {
-                // 检测到开始列
-                var isEmpty = true
-                for letter in letterColumn {
-                    if letter != nil {
-                        isEmpty = false
-                        break
-                    }
-                }
-                if isEmpty {
-                    if tempEmptyColumnArray.count == 0 {
-                        tempEmptyColumnArray.append(index)
-                    } else {
-                        if !tempEmptyColumnArray.contains(index - 1) {
-                            breakColumns.append(contentsOf: tempEmptyColumnArray)
-                            tempEmptyColumnArray.removeAll()
-                            tempEmptyColumnArray.append(index)
-                        } else {
-                            tempEmptyColumnArray.append(index)
-                        }
-                    }
+    func clearMap(letters: [[Letter?]]) {
+        for columnLetters in letters {
+            for letter in columnLetters {
+                if let sprite = letter?.sprite {
+                    sprite.removeFromParent()
                 }
             }
         }
-        return breakColumns
     }
     
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+//        // Get label node from scene and store it for use later
+//        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
+//        if let label = self.label {
+//            label.alpha = 0.0
+//            label.run(SKAction.fadeIn(withDuration: 2.0))
+//        }
+//
+//        // Create shape node to use during mouse interaction
+//        let w = (self.size.width + self.size.height) * 0.05
+//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+//
+//        if let spinnyNode = self.spinnyNode {
+//            spinnyNode.lineWidth = 2.5
+//
+//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
+//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
+//                                              SKAction.fadeOut(withDuration: 0.5),
+//                                              SKAction.removeFromParent()]))
+//        }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        setUpNodes()
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+    }
+    
+    func setUpNodes() {
         
-        self.progressBar = self.childNode(withName: "//timeBar") as? SKSpriteNode
-        if let bar = self.progressBar {
-            let timer = Timer(timeInterval: 0.1, target: self, selector: #selector(reduceTime), userInfo: nil, repeats: true)
+        coinNode = SKLabelNode(text: "9999")
+        coinNode.position = CGPoint(x: -150, y: 220)
+        gameLayer.addChild(coinNode)
+        
+        levelNode = SKLabelNode(text: "3-3")
+        levelNode.horizontalAlignmentMode = .right
+        levelNode.position = CGPoint(x: 150, y: 220)
+        gameLayer.addChild(levelNode)
+        
+        bibleNode = SKSpriteNode(imageNamed: "letter")
+        bibleNode.position = CGPoint(x: 0, y: 220)
+        gameLayer.addChild(bibleNode)
+        
+        timeBar = SKSpriteNode(color: UIColor.green, size: CGSize(width: 200, height: 20))
+        timeBar?.anchorPoint = CGPoint(x: 0, y: 0.5)
+        timeBar?.position = CGPoint(x: -100, y: 200)
+        if let timeBar = timeBar {
+            timer = Timer(timeInterval: 0.1, target: self, selector: #selector(reduceTime), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .default)
+            gameLayer.addChild(timeBar)
         }
-        self.heart = self.childNode(withName: "//heart") as? SKSpriteNode
-        if let heart = self.heart {
-            let flipSequence = SKAction.sequence([SKAction.scaleX(to: 0.1, duration: 1), SKAction.scaleX(to: 100, duration: 1), SKAction.scaleX(to: 0.1, duration: 1), SKAction.scaleX(to: 286, duration: 1)])
-            let changeContentSequence = SKAction.sequence([SKAction.wait(forDuration: 1), SKAction.setTexture(SKTexture(imageNamed: "heart")), SKAction.wait(forDuration: 2), SKAction.setTexture(SKTexture(imageNamed: "unheart")), SKAction.wait(forDuration: 1)])
-            let group = SKAction.group([flipSequence, changeContentSequence])
-            heart.run(SKAction.repeatForever(group))
-        }
+        
+        timeNode = SKLabelNode(text: "10.0")
+        timeNode.position = CGPoint(x: 100, y: 200)
+        gameLayer.addChild(timeNode)
+        
+        textNode = SKSpriteNode(color: UIColor.red, size: CGSize(width: 250, height: 120))
+        textNode.position = CGPoint(x: 0, y: 120)
+        addChild(textNode)
+        
+        
     }
     
     @objc func reduceTime() {
-        progressBar?.xScale -= 0.1
+        timeBar.xScale -= 0.01
+        timeNode.text = (Decimal(string: timeNode.text!)! - 0.1).description
+        timeNode.position = CGPoint(x: timeNode.position.x - 0.01 * 200, y: timeNode.position.y)
+        if timeBar.xScale <= CGFloat(0.01) {
+            timer.invalidate()
+        }
     }
     
     
