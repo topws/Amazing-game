@@ -34,10 +34,9 @@ struct AppInfo {
     let systemName = UIDevice.current.systemName
 }
 
-//URL
-let FymojiKeyboardLoginURL: String = "http://192.168.40.234:8881"
-let FymojiKeyboardInPurchaseURL: String = "http://192.168.40.234:9999"
+//Inpurchase
+let AppSecretKey = "ad9d5c664ebd44119bcd17ae2b630530"
+let ProductId = "1009"
+let ApplicationUsername = "BibleGuardian"//如果有账号系统，应该是UserName去标识
+let UserDefaultStoreVIPKey = "UserDefaultStoreVIPKey"
 
-
-//GIPHY
-let GiphyApiKey: String = "0oxzRcpUzEISx6K0XxHO9seUNu3ApRSX"

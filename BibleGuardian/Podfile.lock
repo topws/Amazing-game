@@ -7,10 +7,12 @@ PODS:
     - Result (~> 4.0)
   - Result (4.0.0)
   - SnapKit (4.2.0)
+  - SwiftyStoreKit (0.14.1)
 
 DEPENDENCIES:
   - Moya (~> 12.0.1)
   - SnapKit (~> 4.2.0)
+  - SwiftyStoreKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -18,13 +20,15 @@ SPEC REPOS:
     - Moya
     - Result
     - SnapKit
+    - SwiftyStoreKit
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftyStoreKit: a5cdece4327f3943eb72fa81aebe3aa6684b5eab
 
-PODFILE CHECKSUM: 8f02a8f4b12cf10237b3440c08a57095baf60bec
+PODFILE CHECKSUM: 2ddf194fe5a2b92daa4c5ffc0d749a09b2d368a2
 
 COCOAPODS: 1.6.0.beta.1
