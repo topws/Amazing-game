@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import SocketIO
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	var chatSocket: SocketIOClient?
-	var socketManager: SocketManager?
+
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		
 		setupWindow()
@@ -31,34 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		vc.navigationBar.isHidden = true
 		self.window?.rootViewController = vc
 		self.window?.makeKeyAndVisible()
-		
-		let dic = ["username" : "手机用户3333",
-				   "roomnum":"13089",
-				   "stream":"13089_1543458639",
-				   "token":"ccc685864e2bda6bf8751a299b2e55d5",
-				   "uid":"13110"]
-		
-		socketManager = SocketManager.init(socketURL: URL(string: "http://172.31.0.124:19967")!, config: [.log(true),.compress])
-		chatSocket = socketManager!.defaultSocket
-		chatSocket?.on("connect", callback: { (data, ack) in
-			print(data)
-			self.chatSocket?.emit("conn", with: [dic])
-	
-			
-			
-		})
-		chatSocket?.on("disconnect", callback: { (data, ack) in
-			print("data = \(data)")
-		})
-		chatSocket?.on("error", callback: { (data, ack) in
-			print("data = \(data)")
-		})
-		chatSocket?.on("conn", callback: { (data, ack) in
-			print("data = \(data)")
-		})
-		chatSocket?.on("broadcastingListen", callback: { (data, ack) in
-			print(data)
-		})
 		
 	}
 	func applicationWillResignActive(_ application: UIApplication) {
