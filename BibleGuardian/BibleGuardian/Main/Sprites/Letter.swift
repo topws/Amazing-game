@@ -26,7 +26,7 @@ class Letter: CustomStringConvertible, Hashable {
     }
     
     var description: String {
-        return "type:\(type) square:(\(column),\(row))"
+        return "type:\(type) sprite:\(String(describing: sprite)) square:(\(column),\(row))"
     }
     
     var isSelected: Bool = false {

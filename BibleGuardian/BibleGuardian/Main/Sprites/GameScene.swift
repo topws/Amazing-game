@@ -9,12 +9,36 @@
 import SpriteKit
 import GameplayKit
 
+protocol GameSceneDelegate: class {
+    func gameSceneDidTappedNext(scene: GameScene)
+}
+
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    private var progressBar: SKSpriteNode?
-    private var heart: SKSpriteNode?
+    weak var sceneDelegate: GameSceneDelegate?
+    
+    var labelFrame: CGRect {
+        get {
+            return textNode.frame
+        }
+    }
+    var reloadFrame: CGRect {
+        get {
+            return nextNode.frame
+        }
+    }
+    
+    private var coinNode : SKLabelNode!
+    private var levelNode : SKLabelNode!
+    private var nextNode : SKLabelNode!
+    private var bibleNode: SKSpriteNode!
+    private var timeBar: SKSpriteNode!
+    private var timeNode : SKLabelNode!
+    private var textNode : SKSpriteNode!
+    private var itemNode: SKSpriteNode!
+    private var treasureNode: SKSpriteNode!
+    
+    private var timer: Timer!
     
     var level: Level!
     
@@ -33,14 +57,22 @@ class GameScene: SKScene {
         
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        let background = SKSpriteNode(imageNamed: "background")
+        background.size = size
+//        addChild(background)
+        
         addChild(gameLayer)
         
         let layerPosition = CGPoint(
             x: -tileWidth * CGFloat(numColumns) / 2,
-            y: -tileHeight * CGFloat(numRows) / 2)
+            y: -tileHeight * CGFloat(numRows) / 2 - 60)
         
         cookiesLayer.position = layerPosition
         gameLayer.addChild(cookiesLayer)
+        
+        nextNode = SKLabelNode(text: "Next")
+        nextNode?.position = CGPoint(x: 100, y: 200)
+        addChild(nextNode!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -111,6 +143,7 @@ class GameScene: SKScene {
         
         if success {
             let (startColumn, startRow) = startPoint
+            var selectedArray: [Letter] = []
             if swipeVerticle == nil {
                 // 第二格确定方向
                 if let letter = level.letter(atColumn: column, row: row) {
@@ -119,10 +152,10 @@ class GameScene: SKScene {
                     } else if row != startRow {         // swipe verticle
                         swipeVerticle = true
                     }
-                    letter.isSelected = true
+//                    letter.isSelected = true
+                    selectedArray.append(letter)
                 }
             } else {
-                var selectedArray: [Letter] = []
                 if swipeVerticle == true {
                     // 垂直
                     for letters in level.letters {
@@ -215,6 +248,15 @@ class GameScene: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+//        for touch in touches {
+//            let location = touch.location(in: cookiesLayer)
+//            if nextNode?.contains(location) == true {
+//                sceneDelegate?.gameSceneDidTappedNext(scene: self)
+//                return
+//            }
+//        }
+        
         var selectedLetters: [Letter] = []
         for letters in level.letters {
             for letter in letters {
@@ -235,7 +277,27 @@ class GameScene: SKScene {
         }
         if level.isWordBingo(word: word) {
             removeWord(selectedLetters: selectedLetters)
-            rearrangeMap(selectedLetters: selectedLetters)
+            if level.answerWords.count > 0 {
+                // 本关还没结束
+                rearrangeMap(selectedLetters: selectedLetters)
+                let breakColumns = level.checkBreak()
+                if breakColumns.count > 0 {
+                    for column in breakColumns {
+                        var fakeLetters: [Letter] = []
+                        for i in 0 ... (numRows - 1) {
+                            let letter = Letter(column: column, row: i, letter: LetterType(rawValue: "?")!)
+                            fakeLetters.append(letter)
+                        }
+                        rearrangeMap(selectedLetters: fakeLetters)
+                    }
+                }
+                if !level.checkWordsAvailable() {
+                    // 检查到无可用单词
+                    clearMap(letters: level!.letters)
+                    level.buildLetters()
+                    addSprites(for: level.letters)
+                }
+            }
         }
         startPoint = nil
         currentPoint = nil
@@ -261,16 +323,22 @@ class GameScene: SKScene {
         var isDrop = false
         var columns: [Int] = []
         var rows: [Int] = []
-        if swipeVerticle == true {
-            columns = [selectedLetters[0].column]
-        } else {
-            rows = [selectedLetters[0].row]
-        }
+//        if swipeVerticle == true {
+//            columns = [selectedLetters[0].column]
+//        } else {
+//            rows = [selectedLetters[0].row]
+//        }
         let topRow = selectedLetters.first!.row
         for letter in selectedLetters {
-            if swipeVerticle == true {
+//            if swipeVerticle == true {
+//                rows.append(letter.row)
+//            } else {
+//                columns.append(letter.column)
+//            }
+            if !rows.contains(letter.row) {
                 rows.append(letter.row)
-            } else {
+            }
+            if !columns.contains(letter.column) {
                 columns.append(letter.column)
             }
             if letter.row == topRow {
@@ -282,32 +350,136 @@ class GameScene: SKScene {
         }
         
         if isDrop {
-            var animateLetters: [Letter] = []
-            for col in columns {
-                for letter in (level.letters[col]) {
-                    guard let letter = letter else { continue }
-                    if letter.row > rows[0] {
-                        // 检测下落高度
-                        var height = letter.row
-                        for i in 1 ... letter.row {
-                            if let _ = level.letter(atColumn: letter.column, row: letter.row - i) {
-                                height = i - 1
-                                break
-                            }
+            // 下落
+            let animateLetters = processDrop(columns: columns, rows: rows)
+            self.isUserInteractionEnabled = false
+            animateFallingLetters(in: animateLetters) {
+                self.isUserInteractionEnabled = true
+            }
+        } else {
+            // 平移
+            var goLeftLetters: [Letter] = []
+            var goRightLetters: [Letter] = []
+            if columns.count == 1 {
+                if !rows.contains(0) {
+                    return
+                }
+                // 单列
+                let emptyColumn = columns[0]
+                if emptyColumn == 0 || emptyColumn == 8 {
+                    return
+                }
+                if emptyColumn <= 3 {
+                    // 右移
+                    goRightLetters = processGoRight(rows: rows, leftColumn: emptyColumn, step: 1)
+                    
+                    self.isUserInteractionEnabled = false
+                    animateFallingLetters(in: goRightLetters) {
+                        self.isUserInteractionEnabled = true
+                    }
+                } else {
+                    // 左移
+                    goLeftLetters = processGoLeft(rows: rows, rightColumn: emptyColumn, step: 1)
+                    
+                    self.isUserInteractionEnabled = false
+                    animateFallingLetters(in: goLeftLetters) {
+                        self.isUserInteractionEnabled = true
+                    }
+                }
+            } else {
+                // 多列
+                guard let leftColumn = columns.first,
+                    let rightColumn = columns.last else { return }
+                let leftStep = 4 - leftColumn
+                let rightStep = rightColumn - 3
+                
+                goLeftLetters = processGoLeft(rows: rows, rightColumn: rightColumn, step: leftStep)
+                goRightLetters = processGoRight(rows: rows, leftColumn: leftColumn, step: rightStep)
+                
+                self.isUserInteractionEnabled = false
+                animateFallingLetters(in: goLeftLetters) {
+                    self.isUserInteractionEnabled = true
+                }
+                self.isUserInteractionEnabled = false
+                animateFallingLetters(in: goRightLetters) {
+                    self.isUserInteractionEnabled = true
+                }
+            }
+//            for letters in level.letters {
+//                for letter in letters {
+//                    guard let letter = letter else { continue }
+//                    if rows.contains(letter.row) {
+//
+//                    }
+//                }
+//            }
+        }
+    }
+    
+    func processDrop(columns: [Int], rows: [Int]) -> [Letter] {
+        var animateLetters: [Letter] = []
+        for col in columns {
+            for letter in (level.letters[col]) {
+                guard let letter = letter else { continue }
+                if letter.row > rows[0] {
+                    // 检测下落高度
+                    var height = letter.row
+                    for i in 1 ... letter.row {
+                        if let _ = level.letter(atColumn: letter.column, row: letter.row - i) {
+                            height = i - 1
+                            break
                         }
-                        // 更新字母
-                        letter.row = letter.row - height
-                        // 更新字母位置
-                        level.letters[col][letter.row + height] = nil
-                        level.letters[col][letter.row] = letter
-                        animateLetters.append(letter)
+                    }
+                    // 更新字母
+                    letter.row = letter.row - height
+                    // 更新字母位置
+                    level.letters[col][letter.row + height] = nil
+                    level.letters[col][letter.row] = letter
+                    animateLetters.append(letter)
+                }
+            }
+        }
+        return animateLetters
+    }
+    
+    func processGoRight(rows: [Int], leftColumn: Int, step: Int) -> [Letter] {
+        var animatedLetters: [Letter] = []
+        var i = leftColumn - 1
+        while i >= 0 {
+            for letter in level.letters[i] {
+                guard let letter = letter else { continue }
+                if rows.contains(letter.row) {
+                    if letter.column < leftColumn {
+                        letter.column = letter.column + step
+                        level.letters[letter.column][letter.row] = letter
+                        level.letters[letter.column - step][letter.row] = nil
+                        animatedLetters.append(letter)
                     }
                 }
             }
-            animateFallingLetters(in: animateLetters) {
-                
-            }
+            i -= 1
         }
+        return animatedLetters
+    }
+    
+    func processGoLeft(rows: [Int], rightColumn: Int, step: Int) -> [Letter] {
+        var animatedLetters: [Letter] = []
+        var i = rightColumn + 1
+        while i < 8 {
+            for letter in level.letters[i] {
+                guard let letter = letter else { continue }
+                if rows.contains(letter.row) {
+                    if letter.column > rightColumn {
+                        letter.column = letter.column - step
+                        level.letters[letter.column][letter.row] = letter
+                        level.letters[letter.column + step][letter.row] = nil
+                        animatedLetters.append(letter)
+                    }
+                }
+            }
+            i += 1
+        }
+        return animatedLetters
     }
     
     func animateFallingLetters(in columns: [Letter], completion: @escaping () -> Void) {
@@ -317,10 +489,11 @@ class GameScene: SKScene {
             for (index, letter) in columns.enumerated() {
                 let newPosition = pointFor(column: letter.column, row: letter.row)
                 // 2
-                let delay = 0.05 + 0.15 * TimeInterval(index)
+                let delay = 0.05 + 0.15 //* TimeInterval(index)
                 // 3
                 let sprite = letter.sprite!   // sprite always exists at this point
-                let duration = TimeInterval(((sprite.position.y - newPosition.y) / tileHeight) * 0.1)
+                let distance = sqrt(pow((sprite.position.y - newPosition.y), 2) + pow((sprite.position.x - newPosition.x), 2))
+                let duration = TimeInterval((distance / tileHeight) * 0.1)
                 // 4
                 longestDuration = max(longestDuration, duration + delay)
                 // 5
@@ -339,44 +512,84 @@ class GameScene: SKScene {
         run(SKAction.wait(forDuration: longestDuration), completion: completion)
     }
     
-    override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-        
-        self.progressBar = self.childNode(withName: "//timeBar") as? SKSpriteNode
-        if let bar = self.progressBar {
-            let timer = Timer(timeInterval: 0.1, target: self, selector: #selector(reduceTime), userInfo: nil, repeats: true)
-            RunLoop.current.add(timer, forMode: .default)
-        }
-        self.heart = self.childNode(withName: "//heart") as? SKSpriteNode
-        if let heart = self.heart {
-            let flipSequence = SKAction.sequence([SKAction.scaleX(to: 0.1, duration: 1), SKAction.scaleX(to: 100, duration: 1), SKAction.scaleX(to: 0.1, duration: 1), SKAction.scaleX(to: 286, duration: 1)])
-            let changeContentSequence = SKAction.sequence([SKAction.wait(forDuration: 1), SKAction.setTexture(SKTexture(imageNamed: "heart")), SKAction.wait(forDuration: 2), SKAction.setTexture(SKTexture(imageNamed: "unheart")), SKAction.wait(forDuration: 1)])
-            let group = SKAction.group([flipSequence, changeContentSequence])
-            heart.run(SKAction.repeatForever(group))
+    func clearMap(letters: [[Letter?]]) {
+        for columnLetters in letters {
+            for letter in columnLetters {
+                if let sprite = letter?.sprite {
+                    sprite.removeFromParent()
+                }
+            }
         }
     }
     
+    override func didMove(to view: SKView) {
+        
+//        // Get label node from scene and store it for use later
+//        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
+//        if let label = self.label {
+//            label.alpha = 0.0
+//            label.run(SKAction.fadeIn(withDuration: 2.0))
+//        }
+//
+//        // Create shape node to use during mouse interaction
+//        let w = (self.size.width + self.size.height) * 0.05
+//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+//
+//        if let spinnyNode = self.spinnyNode {
+//            spinnyNode.lineWidth = 2.5
+//
+//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
+//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
+//                                              SKAction.fadeOut(withDuration: 0.5),
+//                                              SKAction.removeFromParent()]))
+//        }
+        
+        setUpNodes()
+        
+    }
+    
+    func setUpNodes() {
+        
+        coinNode = SKLabelNode(text: "9999")
+        coinNode.position = CGPoint(x: -150, y: 220)
+        gameLayer.addChild(coinNode)
+        
+        levelNode = SKLabelNode(text: "3-3")
+        levelNode.horizontalAlignmentMode = .right
+        levelNode.position = CGPoint(x: 150, y: 220)
+        gameLayer.addChild(levelNode)
+        
+        bibleNode = SKSpriteNode(imageNamed: "letter")
+        bibleNode.position = CGPoint(x: 0, y: 220)
+        gameLayer.addChild(bibleNode)
+        
+        timeBar = SKSpriteNode(color: UIColor.green, size: CGSize(width: 200, height: 20))
+        timeBar?.anchorPoint = CGPoint(x: 0, y: 0.5)
+        timeBar?.position = CGPoint(x: -100, y: 200)
+        if let timeBar = timeBar {
+            timer = Timer(timeInterval: 0.1, target: self, selector: #selector(reduceTime), userInfo: nil, repeats: true)
+            RunLoop.current.add(timer, forMode: .default)
+            gameLayer.addChild(timeBar)
+        }
+        
+        timeNode = SKLabelNode(text: "10.0")
+        timeNode.position = CGPoint(x: 100, y: 200)
+        gameLayer.addChild(timeNode)
+        
+        textNode = SKSpriteNode(color: UIColor.red, size: CGSize(width: 250, height: 120))
+        textNode.position = CGPoint(x: 0, y: 120)
+        addChild(textNode)
+        
+        
+    }
+    
     @objc func reduceTime() {
-        progressBar?.xScale -= 0.1
+        timeBar.xScale -= 0.01
+        timeNode.text = (Decimal(string: timeNode.text!)! - 0.1).description
+        timeNode.position = CGPoint(x: timeNode.position.x - 0.01 * 200, y: timeNode.position.y)
+        if timeBar.xScale <= CGFloat(0.01) {
+            timer.invalidate()
+        }
     }
     
     
