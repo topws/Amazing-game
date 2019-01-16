@@ -8,4 +8,5 @@ target 'BibleGuardian' do
   # Pods for BibleGuardian
   pod 'Moya', '~> 12.0.1'
   pod 'SnapKit', '~> 4.2.0'
+  pod 'Socket.IO-Client-Swift', '~> 13.4.0'
 end

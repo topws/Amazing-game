@@ -36,6 +36,7 @@
 		8FC85AA721DC6F9400722039 /* CleanJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85AA021DC6F9400722039 /* CleanJSON.swift */; };
 		8FC85ABA21DCA66700722039 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85AB821DCA66700722039 /* MainViewController.swift */; };
 		8FC85ABB21DCA66700722039 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85AB921DCA66700722039 /* MainViewController.xib */; };
+		8FC85ABD21DE415800722039 /* CalculateCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85ABC21DE415800722039 /* CalculateCoordinates.swift */; };
 		BC25EA51EF65E7617704F8C0 /* Pods_BibleGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E68672044AD7E5970080F4A /* Pods_BibleGuardian.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		8FC85AB721DCA4C700722039 /* BibleGuardian-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BibleGuardian-Bridging-Header.h"; sourceTree = "<group>"; };
 		8FC85AB821DCA66700722039 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8FC85AB921DCA66700722039 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		8FC85ABC21DE415800722039 /* CalculateCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateCoordinates.swift; sourceTree = "<group>"; };
 		D4E504CF0C2D8F6FD1BDC4B2 /* Pods-BibleGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibleGuardian.debug.xcconfig"; path = "Target Support Files/Pods-BibleGuardian/Pods-BibleGuardian.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +222,7 @@
 			children = (
 				8FC85AB821DCA66700722039 /* MainViewController.swift */,
 				8FC85AB921DCA66700722039 /* MainViewController.xib */,
+				8FC85ABC21DE415800722039 /* CalculateCoordinates.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -330,6 +333,8 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -339,6 +344,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -368,6 +375,7 @@
 				8FC85A6921DC6B3400722039 /* AppDelegate.swift in Sources */,
 				8FC85A8121DC6F4F00722039 /* CustomNavViewController.swift in Sources */,
 				8FC85A8F21DC6F6A00722039 /* UIImage+ByColor.swift in Sources */,
+				8FC85ABD21DE415800722039 /* CalculateCoordinates.swift in Sources */,
 				8FC85A8E21DC6F6A00722039 /* UIColor+RGB.swift in Sources */,
 				8FC85AA321DC6F9400722039 /* LoginAPI.swift in Sources */,
 				6F4A7A5521DE088000E23C8C /* GameScene.swift in Sources */,
