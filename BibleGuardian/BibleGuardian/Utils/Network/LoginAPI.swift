@@ -19,7 +19,7 @@ public enum LoginAPI {
 extension LoginAPI:TargetType {
     public var baseURL: URL {
         
-        return URL(string: FymojiKeyboardLoginURL)!
+        return URL(string: "")!
     }
     
     public var path: String {

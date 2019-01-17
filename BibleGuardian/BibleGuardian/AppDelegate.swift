@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 	}
 	
+	//MARK: -- apple recommands to register a transaction observer as soon as the app starts:
 	//register a transaction observer as soon as the app starts:
 	private func completeTransactions() {
 		//completeTransactions
@@ -41,10 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			for purchase in purchases {
 				switch purchase.transaction.transactionState {
 				case .purchased, .restored:
-					let downloads = purchase.transaction.downloads
-					if !downloads.isEmpty {
-						SwiftyStoreKit.start(downloads)
-					}else if purchase.needsFinishTransaction {
+					if purchase.needsFinishTransaction {
 						// Deliver content from server, then:
 						SwiftyStoreKit.finishTransaction(purchase.transaction)
 					}
@@ -54,21 +52,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 			}
 		}
-		//download success Handler
-		SwiftyStoreKit.updatedDownloadsHandler = { downloads in
-			
-			// contentURL is not nil if downloadState == .finished
-			let contentURLs = downloads.compactMap { $0.contentURL }
-			if contentURLs.count == downloads.count {
-				print("Saving: \(contentURLs)")
-				SwiftyStoreKit.finishTransaction(downloads[0].transaction)
+		
+		if let expiredTime: Date = UserDefaults.standard.object(forKey: UserDefaultExpiredTimeKey) as? Date {
+			//存储的过期时间已经到期
+			if expiredTime < Date() {
+				verifyReceipt()
 			}
 		}
 		
-		//校验是否过期
+		
+	}
+	
+	private func verifyReceipt() {
+		//校验是否过期,程序启动后如账号未登陆，会请求用户登录APPID
 		var serViceType: AppleReceiptValidator.VerifyReceiptURLType = .production
 		#if DEBUG
-			serViceType = .sandbox
+		serViceType = .sandbox
 		#else
 		#endif
 		let appleValidator = AppleReceiptValidator(service: serViceType, sharedSecret: AppSecretKey)
@@ -80,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				case .purchased(let expiryDate, let items):
 					print("\(ProductId) is valid until \(expiryDate)\n\(items)\n")
 					UserDefaults.standard.set(true, forKey: UserDefaultStoreVIPKey)
+					UserDefaults.standard.set(expiryDate, forKey: UserDefaultExpiredTimeKey)
 				case .expired(let expiryDate, let items):
 					print("\(ProductId) is expired since \(expiryDate)\n\(items)\n")
 					UserDefaults.standard.set(false, forKey: UserDefaultStoreVIPKey)
@@ -91,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				print("Receipt verification failed: \(error)")
 			}
 		}
-		
 	}
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

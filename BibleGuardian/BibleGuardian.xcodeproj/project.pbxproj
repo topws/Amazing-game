@@ -15,6 +15,7 @@
 		6F4A7A5521DE088000E23C8C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A7A4F21DE088000E23C8C /* GameScene.swift */; };
 		8F8AC23421EF5E8A00651AB8 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8AC23221EF5E8A00651AB8 /* SubscriptionViewController.swift */; };
 		8F8AC23521EF5E8A00651AB8 /* SubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F8AC23321EF5E8A00651AB8 /* SubscriptionViewController.xib */; };
+		8F8AC23921F0283A00651AB8 /* InPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8AC23821F0283A00651AB8 /* InPurchaseManager.swift */; };
 		8FC85A6921DC6B3400722039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC85A6821DC6B3400722039 /* AppDelegate.swift */; };
 		8FC85A7021DC6B3900722039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A6F21DC6B3900722039 /* Assets.xcassets */; };
 		8FC85A7321DC6B3900722039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC85A7121DC6B3900722039 /* LaunchScreen.storyboard */; };
@@ -53,6 +54,7 @@
 		6F4A7A4F21DE088000E23C8C /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8F8AC23221EF5E8A00651AB8 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 		8F8AC23321EF5E8A00651AB8 /* SubscriptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionViewController.xib; sourceTree = "<group>"; };
+		8F8AC23821F0283A00651AB8 /* InPurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InPurchaseManager.swift; sourceTree = "<group>"; };
 		8FC85A6521DC6B3400722039 /* BibleGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibleGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC85A6821DC6B3400722039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FC85A6F21DC6B3900722039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		8F8AC23121EF5DF900651AB8 /* Inpurchases */ = {
 			isa = PBXGroup;
 			children = (
+				8F8AC23821F0283A00651AB8 /* InPurchaseManager.swift */,
 				8F8AC23221EF5E8A00651AB8 /* SubscriptionViewController.swift */,
 				8F8AC23321EF5E8A00651AB8 /* SubscriptionViewController.xib */,
 			);
@@ -398,6 +401,7 @@
 				8FC85A9121DC6F6A00722039 /* UIView+ViewController.swift in Sources */,
 				8FC85A9021DC6F6A00722039 /* UIView+CornerRadius.swift in Sources */,
 				8FC85AA721DC6F9400722039 /* CleanJSON.swift in Sources */,
+				8F8AC23921F0283A00651AB8 /* InPurchaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

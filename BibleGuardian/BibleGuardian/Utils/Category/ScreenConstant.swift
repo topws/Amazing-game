@@ -39,4 +39,5 @@ let AppSecretKey = "ad9d5c664ebd44119bcd17ae2b630530"
 let ProductId = "1009"
 let ApplicationUsername = "BibleGuardian"//如果有账号系统，应该是UserName去标识
 let UserDefaultStoreVIPKey = "UserDefaultStoreVIPKey"
-
+let UserDefaultExpiredTimeKey = "UserDefaultExpiredTimeKey"
+let SubscriptionStateNotifyKey = "SubscriptionStateNotifyKey"
