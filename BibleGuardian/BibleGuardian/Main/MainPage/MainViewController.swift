@@ -24,12 +24,7 @@ class MainViewController: UIViewController, GameSceneDelegate {
 		setupViews()
     }
 	private func setupViews() {
-		let words: [String] = ["konw","birds","meant"]//,"caged","are","bright"
-		
-		let times = Date()
-//        let coordinates = getCoordinates(words: words.reversed())
-//        print(coordinates)
-		print("randomTime = \(Date().timeIntervalSince(times))")
+		let words: [String] = ["konw","birds","meant","caged","are","bright"]//
 		
 		if let view = self.view as! SKView? {
 			// Load the SKScene from 'GameScene.sks'

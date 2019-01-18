@@ -278,8 +278,11 @@ class GameScene: SKScene {
         if level.isWordBingo(word: word) {
             removeWord(selectedLetters: selectedLetters)
             if level.answerWords.count > 0 {
-                // 本关还没结束
+				
+                //处理消除后变动
                 rearrangeMap(selectedLetters: selectedLetters)
+				
+				//处理合并
                 let breakColumns = level.checkBreak()
                 if breakColumns.count > 0 {
                     for column in breakColumns {
@@ -291,12 +294,12 @@ class GameScene: SKScene {
                         rearrangeMap(selectedLetters: fakeLetters)
                     }
                 }
-                if !level.checkWordsAvailable() {
+//                if !level.checkWordsAvailable() {
                     // 检查到无可用单词
-                    clearMap(letters: level!.letters)
-                    level.buildLetters()
-                    addSprites(for: level.letters)
-                }
+//                    clearMap(letters: level!.letters)
+//                    level.buildLetters()
+//                    addSprites(for: level.letters)
+//                }
             }
         }
         startPoint = nil
